@@ -5,3 +5,6 @@ main:
 	cd rust/code && cargo build --release && cd.. && cd..
 	"C:\Program Files\Go\bin\go.exe" build -o golang/code.exe golang/code.go
 	python -u timer.py $(ITERATIONS)
+
+clean:
+	del /s *.exe
