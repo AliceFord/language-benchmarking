@@ -29,12 +29,15 @@ RUNFILES = {
     #"CPython": "python -u python/code.py",
     #"Ruby": "ruby ruby/code.rb",
     #"PyPy": "C:/pypy/pypy3.exe python/code.py",
-    #"C++": "\"cpp/noopt\"",
-    #"C++ (with optimizations)": "\"cpp/opt\"",
-    #"Java": "java -cp java Main",
-    #"Golang": "\"golang/code\"",
-    #"Rust": "\"rust/code/target/release/code\"",
-    #"Fortran": "\"fortran/code\"",
+    "C++": "\"cpp/noopt\"",
+    "C++ (with optimizations)": "\"cpp/opt\"",
+    "Java": "java -cp java Main",
+    "Golang": "\"golang/code\"",
+    "Rust": "\"rust/code/target/release/code\"",
+    "Fortran": "\"fortran/code\"",
+    "D": "\"D/noopt\"",
+    "D (with optimizations)": "\"D/opt\"",
+    "Julia": "julia julia/code.jl"
 }
 
 # BROKEN:     "BASIC (80k primes)": "C:/Users/olive/Downloads/bbcbasic_console_win64/bbcbasic basic/code.bbc"

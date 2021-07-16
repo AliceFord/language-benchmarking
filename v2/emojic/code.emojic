@@ -1,0 +1,46 @@
+💭🔜 
+💭 -> Comment symbol
+🏁 -> Program start symbol
+🍇🍉 -> Block symbols
+🔤 -> String symbol
+😀 -> Print symbol
+➡️ -> Assignment symbol
+🍿🍆 -> List creation symbols
+🐽 -> List getter
+❗️ -> Finish argument input symbol
+📜 -> Include file
+❌ -> Escape character (like \n)
+
+🔢 -> Int
+💯 -> Float
+💧 -> Byte
+👌 -> Bool (👍 + 👎)
+
+To declare a variable:
+🖍🆕 varname type
+Maths:
+varname ⬅️symbol num
+
+➕ -> add
+
+↪️ -> if
+🔂 -> foreach
+🔁 -> repeat while 
+
+🎍🏎 -> Speedy mode
+🎍🐌 -> Slow mode
+
+🍇🔢DATA➡️🔡🍉 -> Takes int, returns str
+⁉️ -> call function
+🔚💭
+
+🏁 🍇
+    🍇 n 🔢
+        😀 🔤Hi🔤 ❗️
+        🖍🆕prime ▶️🐴  10 🔢 
+        🍿🔤Kitty🔤🍆 ➡️ 🖍 prime
+        😀 🐽prime 0❗️❗️
+    🍉 ➡️ primeSieve
+
+    ⁉️ primeSieve 10❗️
+🍉
