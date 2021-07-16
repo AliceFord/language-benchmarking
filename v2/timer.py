@@ -27,13 +27,17 @@ def sortWithKeyValue(dict):
 
 RUNFILES = {
     #"CPython": "python -u python/code.py",
-    "PyPy": "C:/pypy/pypy3.exe python/code.py",
-    "C++": "\"cpp/noopt\"",
-    "C++ (with optimizations)": "\"cpp/opt\"",
-    "Java": "java -cp java Main",
-    "Golang": "\"golang/code\"",
-    #"Rust": "\"rust/code/target/release/code\""
+    #"Ruby": "ruby ruby/code.rb",
+    #"PyPy": "C:/pypy/pypy3.exe python/code.py",
+    #"C++": "\"cpp/noopt\"",
+    #"C++ (with optimizations)": "\"cpp/opt\"",
+    #"Java": "java -cp java Main",
+    #"Golang": "\"golang/code\"",
+    #"Rust": "\"rust/code/target/release/code\"",
+    #"Fortran": "\"fortran/code\"",
 }
+
+# BROKEN:     "BASIC (80k primes)": "C:/Users/olive/Downloads/bbcbasic_console_win64/bbcbasic basic/code.bbc"
 
 timeData = {}
 
@@ -50,9 +54,9 @@ for key, item in RUNFILES.items():
         t1 = time.time()
         while True:
             output = process.stdout.readline().strip()
-            if output == b's':
+            if output == b's' or output == b'\x17s':
                 t2 = time.time()
-            elif output == b'f':
+            elif output == b'f' or output == b'\x17f':
                 t3 = time.time()
                 break
             else:

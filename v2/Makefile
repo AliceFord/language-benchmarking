@@ -4,6 +4,7 @@ main:
 	javac java/Main.java
 	cd rust/code && cargo build --release && cd.. && cd..
 	"C:\Program Files\Go\bin\go.exe" build -o golang/code.exe golang/code.go
+	gfortran fortran/code.f90 -o fortran/code
 	python -u timer.py $(ITERATIONS)
 
 clean:

@@ -32,6 +32,8 @@ fn run() {
     if sieve.len() != 5761455 {
         panic!("a002113 failed!");
     }
+
+    println!("f")
 }
 
 fn main() {
