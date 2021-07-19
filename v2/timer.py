@@ -7,6 +7,7 @@ import sys
 import matplotlib.pyplot as plt
 
 def sortWithKeyValue(dict):
+    global numTimes
     vals = list(dict.items())
     vals2 = []
     for val in vals:
@@ -16,9 +17,9 @@ def sortWithKeyValue(dict):
         for e in val:
             for i, elem in enumerate(e):
                 sums[i] += elem
-        
         for i, currentSum in enumerate(sums):
-            sums[i] = currentSum / len(val[0])
+            sums[i] = currentSum / numTimes
+
         vals2.append((name, sums))
 
     vals2 = sorted(vals2, key=lambda x: sum(x[1]))
@@ -27,18 +28,19 @@ def sortWithKeyValue(dict):
 
 RUNFILES = {
     #"CPython": "python -u python/code.py",
-    "R": "\"C:/Program Files/R/R-4.1.0/bin/x64/Rscript\" R/code.R",
+    #"R": "\"C:/Program Files/R/R-4.1.0/bin/x64/Rscript\" R/code.R",
     #"Ruby": "ruby ruby/code.rb",
     #"PyPy": "C:/pypy/pypy3.exe python/code.py",
-    "C++": "\"cpp/noopt\"",
-    "C++ (with optimizations)": "\"cpp/opt\"",
-    "Java": "java -cp java Main",
-    "Golang": "\"golang/code\"",
-    "Rust": "\"rust/code/target/release/code\"",
-    "Fortran": "\"fortran/code\"",
-    "D": "\"D/noopt\"",
-    "D (with optimizations)": "\"D/opt\"",
-    "Julia": "julia julia/code.jl"
+    #"C++": "\"cpp/noopt\"",
+    #"C++ (with optimizations)": "\"cpp/opt\"",
+    #"Java": "java -cp java Main",
+    #"Golang": "\"golang/code\"",
+    #"Rust": "\"rust/code/target/release/code\"",
+    #"Fortran": "\"fortran/code\"",
+    #"D": "\"D/noopt\"",
+    #"D (with optimizations)": "\"D/opt\"",
+    #"Julia": "julia julia/code.jl",
+    "Linux (wsl) Assembly": "wsl --cd \"C:/users/olive/desktop/coding/speedtests/v2/assembly\" ./code",
 }
 
 # BROKEN:     "BASIC (80k primes)": "C:/Users/olive/Downloads/bbcbasic_console_win64/bbcbasic basic/code.bbc"

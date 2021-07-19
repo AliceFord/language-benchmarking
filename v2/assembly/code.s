@@ -7,13 +7,15 @@ main:
     mov     $2, %rdx
     syscall
 
-    mov $64, %eax
+    mov $100000000, %eax
     call primeSieve
 
     mov %eax, %r15d  # output stored in r15d
+    nop
     # mov %r15d, %esi
     # call printint
-    cmp $6, %r15
+
+    cmp $5761455, %r15
     je success
 
     movq    $1, %rax
@@ -36,125 +38,65 @@ endofprog:
 
 primeSieve:
     pushq %rbp
+    mov %rsp, %rbp
     mov %eax, %r15d  # r15 contains n
     mov %r15d, %edx  # edx contains temp loop
 
 writeDataLoop:
-    pushw $0xffff
-    sub $16, %rdx
-    cmp $0, %rdx
-    jnle writeDataLoop
+    movb $0b1, prime(%rdx)
 
-    xor %rdx, %rdx
+    dec %rdx
+    cmp $0, %rdx
+    jg writeDataLoop
+
     mov $2, %r13d  # r13 is p
 whileMain:
     # do stuff
 
-    # if prime[p]
-    mov %r13d, %eax
-    mov $8, %ebx
-    div %ebx
-    mov %edx, %esi # esi contains offset mod 8
-    mov $1, %ebx
-    mul %ebx
-    mov %eax, %r12d  # r12 contains offset div 8
-    add %r12, %rsp  # Add on offset to stack pointer
-
-    # mov (%rsp), %esi
-    # call printint
-    mov (%rsp), %r11d # c contains current 8-bit section
-
-    nop
-
-    mov $0x1, %eax  # const
-    # mov %esi, %ebx  # copy to b
-    mov %sil, %cl
-    sal %cl, %eax  # bit
-    and %r11d, %eax  # a contains prime[p]
+#     xor %eax, %eax
+    mov prime(%r13), %al
 
     cmp $0, %eax
-    sub %r12, %rsp
+
+    add %r13, %rbp
+
     je notprime
 
     mov %r13d, %eax
-    mov $2, %r14d
-    mul %r14d
+    mov $2, %ebx
+    mul %ebx
     mov %eax, %r11d  # r11 is i
 
 forloopstart:
-    mov %r11d, %eax
-    mov $8, %ebx
-    div %ebx
-    mov %edx, %esi # esi contains offset mod 8
-    mov $1, %ebx
-    mul %ebx
-    mov %eax, %r12d  # r12 contains offset div 8
-    add %r12, %rsp  # Add on offset to stack pointer
-
-    # mov (%rsp), %esi
-    # call printint
-    mov (%rsp), %r8d # c contains current 8-bit section
-    movl $0xefffffff, (%rsp)
-
-    # mov $0x1, %eax  # const
-    # mov %esi, %ebx  # copy to b
-    # mov %sil, %cl
-    # sal %cl, %eax  # bit
-    # and %r8d, %eax  # a contains prime[p]
-
-    nop
-    # !!!
-    # mov %r11d, %eax
-    # mov $8, %eax
-    # mul %r11d
-    # mov %eax, %r12d  # r12 contains offset
-    # add %r12, %rsp  # Add on offset to stack pointer
-
-    # movq $0, (%rsp)  # prime[i] = 0
-
-    nop
-
-    sub %r12, %rsp
+    movb $0b0, prime(%r11) # prime[i] = 0
 
     add %r13, %r11 # i += p
 
-    cmp %r15, %r11
-    jle forloopstart
-
-    nop
+    cmp %r15, %r11 # if i <= n
+    jle forloopstart  # jump to forloopstart
 
 notprime:  # End of if statement
 
-    # test if p * p <= n
     inc %r13d
     mov %r13d, %eax
     mul %eax
     cmp %r15d, %eax
     jle whileMain  # While loop over
 
-    # add $8, %rsp
-    # mov (%rsp), %esi
-    # call printint
-
-    # sub $8, %rsp
-
-
     xor %r13d, %r13d  # r13 now used for final count
-
-    mov %r15d, %edx
 readDataLoop:
-    pop %r14
-    cmp $0, %r14
-    je skipincrement
+    mov prime(%r15), %al
+
+    test %al, %al
+    jz skipincrement
     inc %r13
 
 skipincrement:
-
-    sub $1, %edx
-    cmp $0, %edx
+    sub $1, %r15d
+    cmp $0, %r15d
     jne readDataLoop
 
-    sub $2, %r13
+    sub $1, %r13
 
     mov %r13d, %eax  # return num with eax
 
@@ -183,5 +125,8 @@ printint:  # Push int to esi
 .data
 start: .ascii "s\n"
 end: .ascii "f\n"
-fmt: .ascii "%x\n"
+fmt: .ascii "%d\n"
 fail: .ascii "Prime sieve failed!\n"
+
+.bss
+prime: .space 100000000

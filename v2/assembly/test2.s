@@ -1,16 +1,42 @@
-section .data                           
-    msg db "Hello World" 
-    len equ $-msg           
-section .text               
-    global _start           
-_start:                 
-    mov rax,1           ;system call number (sys_write)
-    mov rdi,1           ;file descriptor (stdout)
-    mov rsi,msg         ;string arg
-    mov rdx,len         ;length of string arg
-    syscall             ;call kernel
-    mov rax, [rax+rbx]
- 
-    mov rax,60          ;system call number (sys_exit)
-    xor rdi,rdi         ;clear destination index register
-    syscall             ;call kernel
+.globl main
+
+main:
+    push %rbp
+    mov %rsp, %rbp
+
+    mov $arr, %ebx
+    movl  %ebx, %esi 
+    movl  $fmt, %edi 
+    movl  $0, %eax 
+    call  printf 
+
+    mov $8000000, %rdx
+writeDataLoop:
+    sub %rdx, %rbp
+    movb $0b1, (%rbp)
+
+    add %rdx, %rbp
+
+    sub $1, %rdx
+    cmp $0, %rdx
+    jg writeDataLoop
+
+    movl  $1, %esi 
+    movl  $fmt, %edi 
+    movl  $0, %eax 
+    call  printf 
+
+
+    pop %rbp
+    movq    $60, %rax      # System call 60 is exit()
+    movq    $0, %rdi       # Return code 0
+    syscall
+
+.data
+start: .ascii "s\n"
+end: .ascii "f\n"
+fmt: .ascii "%s\n"
+
+arr: .space 100,0x61
+
+.bss
