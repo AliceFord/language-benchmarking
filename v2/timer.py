@@ -27,6 +27,7 @@ def sortWithKeyValue(dict):
 
 RUNFILES = {
     #"CPython": "python -u python/code.py",
+    "R": "\"C:/Program Files/R/R-4.1.0/bin/x64/Rscript\" R/code.R",
     #"Ruby": "ruby ruby/code.rb",
     #"PyPy": "C:/pypy/pypy3.exe python/code.py",
     "C++": "\"cpp/noopt\"",
@@ -65,6 +66,7 @@ for key, item in RUNFILES.items():
             else:
                 print(output)
         process.wait()
+        process.terminate()
         t4 = time.time()
         times.append([t2-t1 if t2-t1 > 0 else 0, t3-t2 if t3-t2 > 0 else 0, t4-t3 if t4-t3 > 0 else 0])
     timeData[key] = times
